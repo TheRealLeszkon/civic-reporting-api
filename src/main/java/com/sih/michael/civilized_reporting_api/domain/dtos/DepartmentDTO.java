@@ -15,6 +15,5 @@ import java.util.List;
 public class DepartmentDTO {
     private Integer id;
     private String name;
-    private List<PostDTO> posts;
     private Integer postCount;
 }

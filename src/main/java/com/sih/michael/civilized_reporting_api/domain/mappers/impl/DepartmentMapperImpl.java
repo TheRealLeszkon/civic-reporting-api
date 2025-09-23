@@ -16,7 +16,6 @@ public class DepartmentMapperImpl implements DepartmentMapper {
         return DepartmentDTO.builder()
                 .id(department.getId())
                 .name(department.getName())
-                //.posts(department.getPosts().stream().map(postMapper::toDTO).toList())
                 .postCount(
                         (department.getPosts()!=null) ?department.getPosts().size() :0
                 )
@@ -28,7 +27,6 @@ public class DepartmentMapperImpl implements DepartmentMapper {
         return Department.builder()
                 .id(departmentDTO.getId())
                 .name(departmentDTO.getName())
-                //.posts(departmentDTO.getPosts().stream().map(postMapper::fromDTO).toList())
                 .build();
     }
 }

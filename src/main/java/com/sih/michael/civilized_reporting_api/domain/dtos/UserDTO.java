@@ -23,6 +23,4 @@ public class UserDTO {
     private String username;
     private String password;
     private Role role;
-    private List<Post> posts;
-    private List<Comment> comments;
 }

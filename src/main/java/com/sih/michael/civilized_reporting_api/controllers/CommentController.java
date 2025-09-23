@@ -45,6 +45,8 @@ public class CommentController {
 
         Comment comment = commentMapper.fromDTO(commentDTO, post, user);
         Comment saved = commentService.create(comment);
+        comment.setUser(user);
+        post.getComments().add(saved);
 
         return new ResponseEntity<>(commentMapper.toDTO(saved), HttpStatus.CREATED);
     }

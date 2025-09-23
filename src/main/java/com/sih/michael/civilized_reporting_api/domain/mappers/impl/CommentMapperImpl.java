@@ -17,9 +17,7 @@ public class CommentMapperImpl implements CommentMapper {
         return CommentDTO.builder()
                 .id(comment.getId())
                 .text(comment.getText())
-                .votes(comment.getVotes())
-                .post(comment.getPost() != null ? comment.getPost().getTitle() : null)
-                .user(comment.getUser() != null ? comment.getUser().getUsername() : null)
+                .votes((comment.getVotes()!=null)?comment.getVotes():0)
                 .build();
     }
 
@@ -30,9 +28,7 @@ public class CommentMapperImpl implements CommentMapper {
         return Comment.builder()
                 .id(commentDTO.getId())
                 .text(commentDTO.getText())
-                .votes(commentDTO.getVotes())
-                .post(post)
-                .user(user)
+                .votes((commentDTO.getVotes()!=null)?commentDTO.getVotes():0)
                 .build();
     }
 }

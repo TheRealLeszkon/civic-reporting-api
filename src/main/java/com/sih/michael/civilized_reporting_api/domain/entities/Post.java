@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Builder
@@ -45,7 +42,7 @@ public class Post {
     private CompletionStatus completionStatus;
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments;
+    private List<Comment> comments =new ArrayList<Comment>();
 
     private Integer votes;
 

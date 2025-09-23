@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/users")
-
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
@@ -22,15 +22,10 @@ public class UserController {
 
     private final UserMapper NoBSuserMapper;
 
-    public UserController(UserService userService, @Qualifier("General") UserMapper userMapper, @Qualifier("NoBS") UserMapper noBSuserMapper) {
-        this.userService = userService;
-        this.userMapper = userMapper;
-        NoBSuserMapper = noBSuserMapper;
-    }
 
     @GetMapping
     public List<UserDTO> showAllUsers(){
-        return userService.listAllUsers().stream().map(NoBSuserMapper::toDTO).toList();
+        return userService.listAllUsers().stream().map(userMapper::toDTO).toList();
     }
 
     @PostMapping

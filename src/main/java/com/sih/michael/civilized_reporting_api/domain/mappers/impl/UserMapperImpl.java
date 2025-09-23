@@ -14,8 +14,6 @@ public class UserMapperImpl implements UserMapper {
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .role(user.getRole())
-                .comments(user.getComments())
-                .posts(user.getPosts())
                 .build();
     }
 
