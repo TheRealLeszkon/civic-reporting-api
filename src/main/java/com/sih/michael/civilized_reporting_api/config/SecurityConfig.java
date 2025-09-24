@@ -31,12 +31,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.GET,"/api/v1/posts/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/v1/posts/drafts").authenticated()
-                        .requestMatchers(HttpMethod.GET,"/api/v1/departments/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/v1/tags/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET,"/api/v1/posts/drafts").authenticated()
+//                        .requestMatchers(HttpMethod.GET,"/api/v1/departments/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET,"/api/v1/tags/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/v1/users/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/v1/users/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/v1/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/v1/posts/**").authenticated()
                         .requestMatchers(HttpMethod.POST,"/api/v1/auth/**").permitAll()
 //                        .requestMatchers(HttpMethod.POST,"/api/v1/comments/**").permitAll()
                 .anyRequest().authenticated()

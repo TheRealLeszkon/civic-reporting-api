@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -29,13 +28,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    @Override
+    @Override //No Changes Needed
     public User createNewUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword() ));
         return userRepository.save(user);
     }
 
-    @Override
+    @Override // No Changes Needed
     public AuthResponse verify(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword())
@@ -51,12 +50,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(UUID id) {
+    public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
 
     @Override
-    public User findUserById(UUID id) {
+    public User findUserById(String id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("User with id ["+id+"] is was not found!")
         );

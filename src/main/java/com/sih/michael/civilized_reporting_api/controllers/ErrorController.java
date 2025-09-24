@@ -1,6 +1,7 @@
 package com.sih.michael.civilized_reporting_api.controllers;
 
 import com.sih.michael.civilized_reporting_api.domain.dtos.APIErrorResponse;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -54,6 +55,14 @@ public class ErrorController {
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<APIErrorResponse> handleEntityNotFoundException(ExpiredJwtException ex){
+        APIErrorResponse error = APIErrorResponse.builder()
+                .status(HttpStatus.FORBIDDEN.value())
+                .message(ex.getMessage())
+                .build();
+        return new ResponseEntity<>(error,HttpStatus.FORBIDDEN);
     }
 
 }

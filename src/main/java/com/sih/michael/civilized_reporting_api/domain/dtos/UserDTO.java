@@ -18,7 +18,7 @@ public class UserDTO {
     private String password;
     private Role type;
     private String email;
-    private String adhaar;
+    private String aadhaar;
     private String mobile;
     private boolean verified;
     private String avatarUrl;

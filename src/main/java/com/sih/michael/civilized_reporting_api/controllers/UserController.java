@@ -20,7 +20,10 @@ public class UserController {
 
     private final UserMapper userMapper;
 
-
+    @GetMapping("/{id}")
+    public UserDTO showUser(@PathVariable String id){
+        return userMapper.toDTO(userService.findUserById(id));
+    }
     @GetMapping
     public List<UserDTO> showAllUsers(){
         return userService.listAllUsers().stream().map(userMapper::toDTO).toList();
@@ -35,7 +38,7 @@ public class UserController {
         );
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable UUID id){
+    public ResponseEntity<Void> deleteUser(@PathVariable String id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

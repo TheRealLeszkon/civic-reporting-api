@@ -13,9 +13,9 @@ public interface UserService {
 
     AuthResponse verify(LoginRequest loginRequest);
 
-    void deleteUser(UUID id);
-
-    User findUserById(UUID id);
+    void deleteUser(String id);
+    
+    User findUserById(String id);
 
     User findUserByUsername(String username);
 

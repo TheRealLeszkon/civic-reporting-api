@@ -2,6 +2,7 @@ package com.sih.michael.civilized_reporting_api.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sih.michael.civilized_reporting_api.domain.dtos.LocationDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -22,8 +24,7 @@ import java.util.*;
 @Slf4j
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private String id;
 
     @Column(nullable = false,columnDefinition = "TEXT")
     private String title;
@@ -34,29 +35,30 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+    private String authorAvatar;
 
     @Enumerated(value = EnumType.STRING)
-    private Status status;
+    private Status pubStatus;
 
     @Enumerated(value = EnumType.STRING)
-    private CompletionStatus completionStatus;
+    private CompletionStatus status;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments =new ArrayList<Comment>();
+//    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Comment> comments =new ArrayList<Comment>();
 
-    private Integer votes;
+//    private Integer votes;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dept_id")
-    private Department department;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "dept_id")
+//    private Department department;
 
-    @ManyToMany
-    @JoinTable(
-            name = "post_tags",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private Set<Tag> tags = new HashSet<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "post_tags",
+//            joinColumns = @JoinColumn(name = "post_id"),
+//            inverseJoinColumns = @JoinColumn(name = "tag_id")
+//    )
+//    private Set<Tag> tags = new HashSet<>();
 
     @Column(precision = 10, scale = 7)
     private BigDecimal lat;
@@ -64,15 +66,17 @@ public class Post {
     @Column(precision = 10, scale = 7)
     private BigDecimal lon;
 
-    private LocalDateTime createdAt;
+    private Instant createdAt;
     private LocalDateTime updatedAt;
 
-
-
+    private String imageUrl;
+    private Integer upvotes;
+    private Integer reposts;
+    private String resolvedImageUrl;
     @PrePersist
     protected void creationInitialization(){
-        this.createdAt=LocalDateTime.now();
+//        this.createdAt=LocalDateTime.now();
         this.updatedAt=LocalDateTime.now();
-        log.info("A New Comment was added to a post.");
+        log.info("A  New Post was added.");
     }
 }

@@ -26,22 +26,22 @@ public class PostController {
     private final UserService userService;
     private final CreatePostRequestMapper postRequestMapper;
 
-    @GetMapping
+    @GetMapping // TODO Clean Up and ReImplement Later
     public List<PostDTO> showAllPosts(
             @RequestParam(required = false) Integer departmentId,
             @RequestParam(required = false) Integer tagId
     ){
-        return postService.findAllPosts(departmentId,tagId).stream().map(postMapper::toDTO).toList();
+        return postService.findAllPosts().stream().map(postMapper::toDTO).toList();
     }
 
     @GetMapping("/drafts")
-    public List<PostDTO> getDrafts(@RequestAttribute UUID userId){
+    public List<PostDTO> getDrafts(@RequestAttribute String userId){
         User loggedInUser = userService.findUserById(userId);
         return postService.findAllDrafts(loggedInUser).stream().map(postMapper::toDTO).toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostDTO> getAPost(@PathVariable UUID id){
+    public ResponseEntity<PostDTO> getAPost(@PathVariable String  id){
         return new ResponseEntity<>(
                 postMapper.toDTO(postService.findPostById(id))
                 ,HttpStatus.OK
@@ -51,10 +51,10 @@ public class PostController {
 
 
     @PostMapping
-    public ResponseEntity<PostDTO> createNewPost(@RequestBody CreatePostRequestDTO createPostRequestDTO,@RequestAttribute(name = "userId") UUID usrId){
+    public ResponseEntity<PostDTO> createNewPost(@RequestBody PostDTO postDTO,@RequestAttribute(name = "userId") String usrId){
         User loggedInUser = userService.findUserById(usrId);
         Post createdPost = postService.createPost(
-                loggedInUser,postRequestMapper.fromDTO(createPostRequestDTO)
+                loggedInUser,postMapper.fromDTO(postDTO)
         );
         return new ResponseEntity<>(
                 postMapper.toDTO(createdPost),

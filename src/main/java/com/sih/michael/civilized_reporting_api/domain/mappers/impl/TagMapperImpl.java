@@ -21,7 +21,7 @@ public class TagMapperImpl implements TagMapper {
         return TagDTO.builder()
                 .id(tag.getId())
                 .name(tag.getName())
-                .postCount((tag.getPosts()!= null)?tag.getPosts().size():0)
+//                .postCount((tag.getPosts()!= null)?tag.getPosts().size():0)
                 .build();
     }
 }

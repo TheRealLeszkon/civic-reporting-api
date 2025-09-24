@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -17,17 +18,28 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostDTO {
-    private UUID id;
+    private String  id;
     private String title;
     private String description;
-    private PosterDTO poster;
-    private DepartmentDTO department;
-    private Set<TagDTO> tags;
-    private Status status;
-    private CompletionStatus completionStatus;
-    private List<Comment> comments;
-    private Integer votes;
-    private BigDecimal lat;
-    private BigDecimal lon;
-    private LocalDateTime updatedAt;
+
+    // Flattened user info for the frontend
+    private String authorId;
+    private String authorUsername;
+    private String authorAvatar;
+
+    // Tags simplified as string array
+    private List<String> tags;
+
+    private String imageUrl;
+    private LocationDTO location;
+
+    private CompletionStatus status;
+    private Instant createdAt;
+
+    private Integer upvotes;
+    private Integer reposts;
+
+//    private List<IssueUpdateDTO> updates;
+
+    private String resolvedImageUrl;
 }

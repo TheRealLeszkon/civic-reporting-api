@@ -1,23 +1,19 @@
 package com.sih.michael.civilized_reporting_api.domain.mappers.impl;
 
+import com.sih.michael.civilized_reporting_api.domain.dtos.LocationDTO;
 import com.sih.michael.civilized_reporting_api.domain.dtos.PostDTO;
-import com.sih.michael.civilized_reporting_api.domain.dtos.PosterDTO;
 import com.sih.michael.civilized_reporting_api.domain.entities.Post;
-import com.sih.michael.civilized_reporting_api.domain.entities.User;
-import com.sih.michael.civilized_reporting_api.domain.mappers.DepartmentMapper;
+import com.sih.michael.civilized_reporting_api.domain.entities.Status;
 import com.sih.michael.civilized_reporting_api.domain.mappers.PostMapper;
-import com.sih.michael.civilized_reporting_api.domain.mappers.TagMapper;
+import com.sih.michael.civilized_reporting_api.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class PostMapperImpl implements PostMapper {
 
-    private final TagMapper tagMapper;
-    private final DepartmentMapper departmentMapper;
+    private final UserService userService;
     @Override
     public PostDTO toDTO(Post post) {
         return PostDTO.builder()
@@ -25,19 +21,18 @@ public class PostMapperImpl implements PostMapper {
                 .title(post.getTitle())
                 .description(post.getDescription())
                 .status(post.getStatus())
-                .completionStatus(post.getCompletionStatus())
-                .comments(post.getComments())
-                .department(
-                        departmentMapper.toDTO(post.getDepartment())
-                )
-                .tags(
-                        post.getTags().stream().map(tagMapper::toDTO).collect(Collectors.toSet())
-                )
-                .votes(post.getVotes())
-                .lat(post.getLat())
-                .lon(post.getLon())
-                .updatedAt(post.getUpdatedAt())
+                .authorId(post.getUser().getId())
+                .authorUsername(post.getUser().getUsername())
+                .authorAvatar(post.getAuthorAvatar())
+//                .tags(post.getTags().stream().map(Tag::getName).toList())
+                .imageUrl(post.getImageUrl())
+                .location(new LocationDTO(post.getLat(),post.getLon()))
+                .createdAt(post.getCreatedAt())
+                .upvotes(post.getUpvotes())
+                .reposts(post.getReposts())
+                .resolvedImageUrl(post.getResolvedImageUrl())
                 .build();
+
     }
 
     @Override
@@ -47,18 +42,16 @@ public class PostMapperImpl implements PostMapper {
                 .title(postDTO.getTitle())
                 .description(postDTO.getDescription())
                 .status(postDTO.getStatus())
-                .completionStatus(postDTO.getCompletionStatus())
-                .comments(postDTO.getComments())
-                .department(
-                        departmentMapper.fromDTO(postDTO.getDepartment())
-                )
-                .tags(
-                        postDTO.getTags().stream().map(tagMapper::fromDTO).collect(Collectors.toSet())
-                )
-                .votes(postDTO.getVotes())
-                .lat(postDTO.getLat())
-                .lon(postDTO.getLon())
-                .updatedAt(postDTO.getUpdatedAt())
+                .pubStatus(Status.PUBLISHED)
+                .authorAvatar(postDTO.getAuthorAvatar())
+//                .user(userService.findUserById(postDTO.getAuthorId()))
+                .lat(postDTO.getLocation().getLat())
+                .lon(postDTO.getLocation().getLng())
+                .imageUrl(postDTO.getImageUrl())
+                .upvotes(postDTO.getUpvotes())
+                .reposts(postDTO.getReposts())
+                .createdAt(postDTO.getCreatedAt())
+                .resolvedImageUrl(postDTO.getResolvedImageUrl())
                 .build();
     }
 }
