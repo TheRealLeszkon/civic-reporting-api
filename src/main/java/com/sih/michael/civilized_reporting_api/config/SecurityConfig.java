@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         )
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.disable())
+//                .cors(cors -> cors.disable())
 //                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

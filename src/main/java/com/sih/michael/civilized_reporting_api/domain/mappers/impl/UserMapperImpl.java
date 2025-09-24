@@ -13,7 +13,14 @@ public class UserMapperImpl implements UserMapper {
                 .id(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .role(user.getRole())
+                .type(user.getType())
+                .mobile(user.getMobile())
+                .email(user.getEmail())
+                .adhaar(user.getAdhaar())
+                .verified(user.isVerified())
+                .avatarUrl(user.getAvatarUrl())
+                .bio(user.getBio())
+                .joinedDate(user.getJoinedDate())
                 .build();
     }
 
@@ -23,7 +30,14 @@ public class UserMapperImpl implements UserMapper {
                 .id(userDTO.getId())
                 .username(userDTO.getUsername())
                 .password(userDTO.getPassword())
-                .role(userDTO.getRole())
+                .type(userDTO.getType())
+                .mobile(userDTO.getMobile())
+                .email(userDTO.getEmail())
+                .adhaar(userDTO.getAdhaar())
+                .verified(userDTO.isVerified())
+                .avatarUrl(userDTO.getAvatarUrl())
+                .bio(userDTO.getBio())
+                .joinedDate(userDTO.getJoinedDate())
                 .build();
     }
 }

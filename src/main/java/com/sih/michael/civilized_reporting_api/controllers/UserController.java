@@ -20,8 +20,6 @@ public class UserController {
 
     private final UserMapper userMapper;
 
-    private final UserMapper NoBSuserMapper;
-
 
     @GetMapping
     public List<UserDTO> showAllUsers(){
