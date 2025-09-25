@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override // No Changes Needed
     public AuthResponse verify(LoginRequest loginRequest) {
+        String userId = findUserByUsername(loginRequest.getUsername()).getId();
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword())
         );
@@ -43,10 +44,11 @@ public class UserServiceImpl implements UserService {
             String token =jwtService.generateToken(loginRequest.getUsername());
             return AuthResponse.builder()
                     .token(token)
+                    .userId(userId)
                     .expiresIn(jwtService.extractExpiration(token).getTime())
                     .build();
         }
-        return new AuthResponse("bad credentials",0);
+        return new AuthResponse("bad credentials",userId,0);
     }
 
     @Override

@@ -10,11 +10,10 @@ public interface TagService {
 
     List<Tag> getAllTags();
 
-    Tag createTag(Tag tag);
+    Tag createTags(Set<Tag> tags);
 
     void deleteTag(Integer id);
 
-    Tag findTagById(Integer id);
 
     List<Tag> getTagByIds(Set<Integer> ids);
 }

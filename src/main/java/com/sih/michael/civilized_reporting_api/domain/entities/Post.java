@@ -60,6 +60,13 @@ public class Post {
 //    )
 //    private Set<Tag> tags = new HashSet<>();
 
+    @ElementCollection
+    @CollectionTable(
+            name = "post_tags", // table to store the strings
+            joinColumns = @JoinColumn(name = "post_id")
+    )
+    @Column(name = "tag")
+    private List<String> tags = new ArrayList<>();
     @Column(precision = 10, scale = 7)
     private BigDecimal lat;
 
